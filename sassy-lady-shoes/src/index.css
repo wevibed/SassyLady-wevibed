@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 275 30% 97%;
+    --foreground: 282 61% 14%;
+    --card: 275 30% 97%;
+    --card-foreground: 282 61% 14%;
+    --popover: 275 30% 97%;
+    --popover-foreground: 282 61% 14%;
+    --primary: 282 61% 14%;
+    --primary-foreground: 275 30% 97%;
+    --secondary: 335 55% 92%;
+    --secondary-foreground: 282 61% 14%;
+    --muted: 275 22% 92%;
+    --muted-foreground: 282 16% 36%;
+    --accent: 328 80% 52%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 0% 10%;
+    --destructive-foreground: 40 14% 97%;
+    --border: 280 20% 86%;
+    --input: 280 20% 86%;
+    --ring: 328 80% 52%;
+    --stone: 335 55% 92%;
+    --radius: 0.25rem;
+    --font-heading: "Bodoni Moda", ui-serif, Georgia, serif;
+    --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Bodoni Moda", ui-serif, Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-background: 40 14% 97%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 0 0% 10%;
+    --sidebar-primary-foreground: 40 14% 97%;
+    --sidebar-accent: 43 15% 91%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 43 15% 88%;
+    --sidebar-ring: 0 0% 10%;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 40 14% 97%;
+    --card: 0 0% 8%;
+    --card-foreground: 40 14% 97%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 40 14% 97%;
+    --primary: 40 14% 97%;
+    --primary-foreground: 0 0% 8%;
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 40 14% 97%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 19 29% 68%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 40 14% 97%;
+    --destructive-foreground: 0 0% 8%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 40 14% 97%;
+    --stone: 0 0% 16%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 40 14% 97%;
+    --sidebar-primary: 40 14% 97%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 16%;
+    --sidebar-accent-foreground: 40 14% 97%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 40 14% 97%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  ::selection {
+    @apply bg-foreground text-background;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .tracking-luxe {
+    letter-spacing: 0.22em;
+  }
+  .tracking-wide-luxe {
+    letter-spacing: 0.14em;
+  }
+}
+
+/* Sentence-case labels and buttons (template used tracked all-caps). */
+@layer utilities {
+  .uppercase { text-transform: none; }
+  .tracking-luxe, .tracking-wide-luxe { letter-spacing: 0.01em; }
+  .text-\[10px\] { font-size: 0.75rem; }
+  .text-\[11px\] { font-size: 0.8125rem; }
+  .font-heading { font-optical-sizing: auto; letter-spacing: -0.01em; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
