@@ -1,54 +1,40 @@
 name: Extract Project ZIP
 
-on:
-workflow_dispatch:
+on: push
 
 permissions:
-contents: write
+  contents: write
 
 jobs:
-extract:
-runs-on: ubuntu-latest
+  extract:
+    runs-on: ubuntu-latest
 
-steps:  
-  - name: Checkout repository  
-    uses: actions/checkout@v4  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  - name: Find and extract ZIP  
-    shell: bash  
-    run: |  
-      ZIP_FILE=$(find . -maxdepth 1 -type f -name "*.zip" | head -n 1)  
+      - name: Extract ZIP
+        run: |
+          ZIP_FILE=$(find . -maxdepth 1 -type f -name "*.zip" | head -n 1)
 
-      if [ -z "$ZIP_FILE" ]; then  
-        echo "No ZIP file found in the repository root."  
-        ls -la  
-        exit 1  
-      fi  
+          if [ -z "$ZIP_FILE" ]; then
+            echo "No ZIP file found"
+            exit 1
+          fi
 
-      echo "Found ZIP: $ZIP_FILE"  
+          echo "Found ZIP: $ZIP_FILE"
 
-      mkdir extracted  
-      unzip -q "$ZIP_FILE" -d extracted  
+          mkdir extracted
+          unzip -q "$ZIP_FILE" -d extracted
 
-      echo "Extracted contents:"  
-      find extracted -maxdepth 2 -type f  
+          cp -a extracted/. .
 
-      TOP_LEVEL=$(find extracted -mindepth 1 -maxdepth 1 -type d | head -n 1)  
-      FILE_COUNT=$(find extracted -mindepth 1 -maxdepth 1 | wc -l)  
+          rm -rf extracted "$ZIP_FILE"
 
-      if [ "$FILE_COUNT" -eq 1 ] && [ -n "$TOP_LEVEL" ]; then  
-        cp -a "$TOP_LEVEL"/. .  
-      else  
-        cp -a extracted/. .  
-      fi  
-
-      rm -rf extracted "$ZIP_FILE"  
-
-  - name: Commit extracted project  
-    run: |  
-      git config user.name "github-actions[bot]"  
-      git config user.email "41898282+github-actions[bot]@users.noreply.github.com"  
-
-      git add -A  
-      git commit -m "Extract sassy shoes project from ZIP" || echo "Nothing to commit"  
-      git push
+      - name: Commit extracted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Extract project from ZIP" || echo "Nothing to commit"
+          git push
